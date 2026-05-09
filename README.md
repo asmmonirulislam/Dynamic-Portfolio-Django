@@ -53,6 +53,12 @@ The standout feature of this project is its **automatic resume generation system
 
 ---
 
+## 🌐 Live Demo
+
+🔗 **[https://asmmonirulislam.pythonanywhere.com](https://asmmonirulislam.pythonanywhere.com)**
+
+---
+
 ## 🚀 Getting Started
 
 ### 1. Clone the Repository
