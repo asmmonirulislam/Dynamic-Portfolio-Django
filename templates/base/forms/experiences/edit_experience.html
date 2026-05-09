@@ -1,0 +1,37 @@
+  <div class="modal-overlay" id="modal-exp-edit">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Edit Experience</span>
+        <button class="modal-close" onclick="closeModal('modal-exp-edit')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="exe_role">Role / Title</label>
+          <input id="exe_role" type="text" name="role" placeholder="e.g. Secretary of Competitive Programming" required />
+        </div>
+        <div class="mf-group">
+          <label for="exe_org">Organisation</label>
+          <input id="exe_org" type="text" name="org" placeholder="e.g. WUB Computer Society" />
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="exe_start">Start</label>
+            <input id="exe_start" type="text" name="start_date" placeholder="e.g. 2024" />
+          </div>
+          <div class="mf-group">
+            <label for="exe_end">End</label>
+            <input id="exe_end" type="text" name="end_date" placeholder="e.g. Present" />
+          </div>
+        </div>
+        <div class="mf-group">
+          <label for="exe_cert">Certificate / Link URL (optional)</label>
+          <input id="exe_cert" type="url" name="certificate" placeholder="https://..." />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-exp-edit')">Cancel</button>
+          <button type="submit" class="modal-save">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>

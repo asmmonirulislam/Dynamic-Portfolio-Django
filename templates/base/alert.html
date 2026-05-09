@@ -1,0 +1,121 @@
+<!-- SUCCESS ALERT -->
+<div class="modal-overlay alert-overlay" id="modal-alert-success">
+  <div class="alert-box alert-success">
+    <div class="alert-icon-wrap">
+      <div class="alert-icon-ring"></div>
+      <i class="fa-solid fa-check alert-icon"></i>
+    </div>
+    <div class="alert-content">
+      <div class="alert-title">Success</div>
+      <div class="alert-msg" id="alert-success-msg">Your changes have been saved.</div>
+    </div>
+    <button class="alert-close" onclick="closeModal('modal-alert-success')">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="alert-progress alert-progress-success"></div>
+  </div>
+</div>
+
+<!-- ERROR ALERT -->
+<div class="modal-overlay alert-overlay" id="modal-alert-error">
+  <div class="alert-box alert-error">
+    <div class="alert-icon-wrap">
+      <div class="alert-icon-ring"></div>
+      <i class="fa-solid fa-xmark alert-icon"></i>
+    </div>
+    <div class="alert-content">
+      <div class="alert-title">Error</div>
+      <div class="alert-msg" id="alert-error-msg">Something went wrong. Please try again.</div>
+    </div>
+    <button class="alert-close" onclick="closeModal('modal-alert-error')">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="alert-progress alert-progress-error"></div>
+  </div>
+</div>
+
+<!-- WARNING ALERT -->
+<div class="modal-overlay alert-overlay" id="modal-alert-warning">
+  <div class="alert-box alert-warning">
+    <div class="alert-icon-wrap">
+      <div class="alert-icon-ring"></div>
+      <i class="fa-solid fa-triangle-exclamation alert-icon"></i>
+    </div>
+    <div class="alert-content">
+      <div class="alert-title">Warning</div>
+      <div class="alert-msg" id="alert-warning-msg">Please review before proceeding.</div>
+    </div>
+    <button class="alert-close" onclick="closeModal('modal-alert-warning')">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="alert-progress alert-progress-warning"></div>
+  </div>
+</div>
+
+<!-- INFO ALERT -->
+<div class="modal-overlay alert-overlay" id="modal-alert-info">
+  <div class="alert-box alert-info">
+    <div class="alert-icon-wrap">
+      <div class="alert-icon-ring"></div>
+      <i class="fa-solid fa-circle-info alert-icon"></i>
+    </div>
+    <div class="alert-content">
+      <div class="alert-title">Info</div>
+      <div class="alert-msg" id="alert-info-msg">Here is some useful information.</div>
+    </div>
+    <button class="alert-close" onclick="closeModal('modal-alert-info')">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="alert-progress alert-progress-info"></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const ALERT_TAG_MAP = {
+    success: 'modal-alert-success',
+    error: 'modal-alert-error',
+    warning: 'modal-alert-warning',
+    info: 'modal-alert-info',
+    debug: 'modal-alert-info',
+  };
+
+  const ALERT_DURATION = 4000;
+
+  const djangoMessages = [
+    {% if messages %}
+      {% for message in messages %}
+        {
+          tags: "{{ message.tags }}",
+          text: "{{ message|escapejs }}"
+        }{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    {% endif %}
+  ];
+
+  djangoMessages.forEach(function(msg, index) {
+    setTimeout(function() {
+
+      const tag = msg.tags.trim().split(' ').pop();
+      const modalId = ALERT_TAG_MAP[tag] || 'modal-alert-info';
+
+      const msgEl = document.getElementById(
+        modalId.replace('modal-alert-', 'alert-') + '-msg'
+      );
+
+      if (msgEl) msgEl.textContent = msg.text;
+
+      if (typeof openModal === "function") {
+        openModal(modalId);
+
+        setTimeout(() => {
+          closeModal(modalId);
+        }, ALERT_DURATION);
+      }
+
+    }, index * 600);
+  });
+
+});
+</script>

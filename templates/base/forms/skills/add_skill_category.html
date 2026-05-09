@@ -1,0 +1,19 @@
+  <div class="modal-overlay" id="modal-skill-add">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Add Skill Category</span>
+        <button class="modal-close" onclick="closeModal('modal-skill-add')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST" action="{% url 'add_skill_category' %}">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="sa_category">Category Name</label>
+          <input id="sa_category" type="text" name="skill_category" placeholder="e.g. Databases" required />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-skill-add')">Cancel</button>
+          <button type="submit" class="modal-save">Add Category</button>
+        </div>
+      </form>
+    </div>
+  </div>

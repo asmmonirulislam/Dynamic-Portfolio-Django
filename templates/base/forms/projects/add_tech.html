@@ -1,0 +1,19 @@
+  <div class="modal-overlay" id="modal-project-tech-stack">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Add Tech Stack for Project</span>
+        <button class="modal-close" onclick="closeModal('modal-project-tech-stack')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="se_skills">Tech Name</label>
+          <input id="se_skills" type="text" name="tech_stack" placeholder="e.g. Python" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-project-tech-stack')">Cancel</button>
+          <button type="submit" class="modal-save">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,12 @@
+
+  <div class="confirm-overlay" id="confirmLogout">
+    <div class="confirm-box">
+      <div class="confirm-icon">⚠️</div>
+      <p class="confirm-msg">Are you sure you want to logout?</p>
+      <form class="confirm-actions" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="button" onclick="closeLogout()" class="confirm-cancel-btn">Cancel</button>
+        <button type="submit" class="confirm-logout-btn">Logout</button>
+      </form>
+    </div>
+  </div>

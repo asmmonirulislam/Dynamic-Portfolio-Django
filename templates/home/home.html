@@ -1,0 +1,500 @@
+{% extends "base/base.html" %}
+{% block content %}
+{% load static %}
+  <main>
+    <section id="home">
+      {% if user.is_authenticated %}
+      <div class="section-action-bar">
+        <button class="sab-btn sab-edit" onclick="openModal('modal-hero')">
+          <i class="fa-solid fa-pen"></i> Edit Profile
+        </button>
+      </div>
+      {% endif %}
+      
+      {% if profile %}
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="photo-wrap">
+            <div class="photo">
+              <img src="/media/{{profile.image}}" alt="Monirul Islam"
+                loading="lazy"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div class="photo-ph" style="display:none">MI</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="hero-badge"><span class="hb-dot"></span>Open to Opportunities</div>
+          <h1 class="hero-name">{{profile.first_name}}<br /><span class="ac">{{profile.middle_name}}</span><br />{{profile.last_name}}</h1>
+          <p class="hero-sub">{{profile.bio}}</p>
+          <div class="hero-cta">
+            {% if profile.github %}
+            <a href="{{profile.github}}" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View Works</a>
+            {% endif %}
+            {% if profile %}
+            <a style="cursor:pointer" onclick="downloadResume()" class="btn btn-ghost"><i class="fa-solid fa-download"></i> Resume</a>
+            {% endif %}
+          </div>
+          <div class="hero-socials">
+            {% if profile.github %}<a href="{{profile.github}}" target="_blank"><i class="fa-brands fa-github"></i></a>{% endif %}
+            {% if profile.linkedin %}<a href="{{profile.linkedin}}" target="_blank"><i class="fa-brands fa-linkedin"></i></a>{% endif %}
+            {% if profile.facebook %}<a href="{{profile.facebook}}" target="_blank"><i class="fa-brands fa-facebook"></i></a>{% endif %}
+            {% if profile.x %}<a href="{{profile.x}}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>{% endif %}
+            {% if profile.youtube %}<a href="{{profile.youtube}}" target="_blank"><i class="fa-brands fa-youtube"></i></a>{% endif %}
+            {% if profile.instagram %}<a href="{{profile.instagram}}" target="_blank"><i class="fa-brands fa-instagram"></i></a>{% endif %}
+            {% if profile.whatsapp %}<a href="{{profile.whatsapp}}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>{% endif %}
+            {% if profile.telegram %}<a href="{{profile.telegram}}" target="_blank"><i class="fa-brands fa-telegram"></i></a>{% endif %}
+            {% if profile.discord %}<a href="{{profile.discord}}" target="_blank"><i class="fa-brands fa-discord"></i></a>{% endif %}
+            {% if profile.messenger %}<a href="{{profile.messenger}}" target="_blank"><i class="fa-brands fa-facebook-messenger"></i></a>{% endif %}
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="empty-text">Profile Not Found</div>
+      {% endif %}
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ====== ABOUT ====== -->
+    <section id="about">
+      <div class="inner">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">
+          Who I Am
+          {% if user.is_authenticated %}
+          <span class="title-actions">
+            <button class="tab-btn tab-edit" onclick="openModal('modal-about')" title="Edit About"><i class="fa-solid fa-plus"></i></button>
+          </span>
+          {% endif %}
+        </h2>
+        {% if abouts %}
+        <div class="about-grid reveal">
+          <div class="about-text">
+            {% for about in abouts %}
+            <p>{{about.description}}{% if user.is_authenticated %}<button class="inner-del" data-url="{% url 'delete_about' about.pk %}" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>{% endif %}</p>
+            {% endfor %}
+            {% if profile.fav_quote %}<div class="about-quote">"{{profile.fav_quote}}"{% if user.is_authenticated %}<button class="inner-del" data-url="{% url 'delete_fav_quote' %}" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>{% endif %}</p></div>{% endif %}
+          </div>
+          <div>
+            {% if education %}
+            <div class="info-row"><i class="fa-solid fa-graduation-cap info-icon"></i><div><div class="info-label">University</div><div class="info-value">{{education.first.institution}}</div></div></div>
+            <div class="info-row"><i class="fa-solid fa-code info-icon"></i><div><div class="info-label">Degree</div><div class="info-value">{{education.first.degree}} in {{education.first.field_of_study}}</div></div></div>
+            <div class="info-row"><i class="fa-solid fa-star info-icon"></i><div><div class="info-label">GRADE</div><div class="info-value">{{education.first.grade}}</div></div></div>
+            <div class="info-row"><i class="fa-solid fa-location-dot info-icon"></i><div><div class="info-label">Location</div><div class="info-value">{{education.first.location}}</div></div></div>
+            {% endif %}
+            {% if profile.interests %}<div class="info-row"><i class="fa-solid fa-bullseye info-icon"></i><div><div class="info-label">Interests</div><div class="info-value">{{profile.interests}}</div></div></div>{% endif %}
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="empty-text">About Not Found</div>
+      {% endif %}
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ====== EDUCATION ====== -->
+    <section id="education">
+      <div class="inner">
+        <div class="section-label">Academic Journey</div>
+        <h2 class="section-title">
+          Education
+          {% if user.is_authenticated %}
+          <span class="title-actions">
+            <button class="tab-btn tab-add" onclick="openModal('modal-edu-add')" title="Add Education"><i class="fa-solid fa-plus"></i></button>
+          </span>
+          {% endif %}
+        </h2>
+        {% if education %}
+        <div class="edu-timeline">
+          {% for edu in education %}
+          <div class="edu-card reveal">
+            {% if user.is_authenticated %}
+            <div class="card-actions">
+              <button class="ca-btn ca-edit" 
+                data-url="{% url 'edit_education' edu.pk %}"
+                data-name="education"
+                data-institution="{{edu.institution}}" 
+                data-degree="{{edu.degree}}" 
+                data-field="{{edu.field_of_study}}" 
+                data-startyear="{{edu.start_year}}" 
+                data-endyear="{{edu.end_year}}" 
+                data-grade="{{edu.grade}}" 
+                data-location="{{edu.location}}" 
+                data-website="{{edu.website}}" 
+                onclick="openEditModal('modal-edu-edit', this)" 
+                title="Edit">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="ca-btn ca-delete" data-url="{% url 'delete_education' edu.pk %}" data-title="Do you want to delete {{edu.institution}}?" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            {% endif %}
+            <div class="edu-dot"></div>
+            <div class="edu-box">
+              <div class="edu-meta">
+                <div class="edu-inst">{{edu.institution}}</div>
+                <span class="edu-badge bg">GRADE {{edu.grade}}</span>
+              </div>
+              <div class="edu-deg">{{edu.degree}} in {{edu.field_of_study}}  ({{edu.start_year}}-{{edu.end_year}})</div>
+              <ul class="items">
+                {% for key in edu.keypoints.all %}
+                <li>{{key.keypoint}} {% if user.is_authenticated %}<button class="inner-del" data-url="{% url 'delete_edu_key' key.pk %}" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>{% endif %}</li>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                <button class="add-keypoints-btn" data-url="{% url 'add_education_keypoints' edu.pk %}" onclick="openKeyModal(this)" title="Add Keypoints"><i class="fa-solid fa-plus"></i>Add Keypoints</button>
+                {% endif %}
+              </ul>
+              {% if edu.website %}<a href="{{edu.website}}" target="_blank" class="edu-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Website</a>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+          
+        </div>
+      </div>
+      {% else %}
+      <div class="empty-text">Education Not Found</div>
+      {% endif %}
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ====== PROJECTS ====== -->
+    <section id="projects">
+      <div class="inner">
+        <div class="section-label">Work Showcase</div>
+        <h2 class="section-title">
+          Projects
+          {% if user.is_authenticated %}
+          <span class="title-actions">
+            <button class="tab-btn tab-add" onclick="openModal('modal-proj-add')" title="Add Project"><i class="fa-solid fa-plus"></i></button>
+          </span>
+          {% endif %}
+        </h2>
+        {% if projects %}
+        <div class="projects-grid">
+          {% for project in projects %}
+          <div class="proj-card reveal">
+            {% if user.is_authenticated %}
+            <div class="card-actions">
+              <button class="ca-btn ca-edit" 
+                data-url="{% url 'edit_project' project.pk %}"
+                data-name="project"
+                data-title="{{project.title}}" 
+                data-github="{{project.github_url}}" 
+                data-live="{{project.live_url}}" 
+                data-thumbnail="{{project.thumbnail}}" 
+                onclick="openEditModal('modal-proj-edit', this)" 
+                title="Edit">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="ca-btn ca-delete" data-url="{% url 'delete_project' project.pk %}" data-title="Do you want to delete {{project.title}}?" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            {% endif %}
+            <div class="proj-img" style="background:linear-gradient(135deg,#18181f,#111118)">
+              {% if project.thumbnail %} 
+              <img src="/media/{{project.thumbnail}}" loading="lazy"> 
+              {% else %}
+              <div class="proj-img-ph">🌐</div>
+              {% endif %}
+            </div>
+            <div class="proj-body">
+              <div class="proj-title">{{project.title}}</div>
+              <ul class="items">
+                {% for key in project.keypoints.all %}
+                <li>{{key.keypoint}} {% if user.is_authenticated %}<button class="inner-del" data-url="{% url 'delete_project_key' key.pk %}" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>{% endif %}</li>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                <button class="add-keypoints-btn" data-url="{% url 'add_project_keypoints' project.pk %}" onclick="openKeyModal(this)" title="Add Keypoints"><i class="fa-solid fa-plus"></i>Add Keypoints</button>
+                {% endif %}
+              </ul>
+              <div class="proj-stack">
+                {% for tech in project.tech_stacks.all %}
+                <span class="sp">{{tech.tech_stack}} {% if user.is_authenticated %}<button class="tech-del" data-url="{% url 'delete_project_stack' tech.pk %}" data-title="Do you want to delete {{tech.tech_stack}}" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>{% endif %}</span>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                <button class="add-tech-btn" data-url="{% url 'add_project_stacks' project.pk %}" onclick="openTechModal(this)" title="Add Tech Stack"><i class="fa-solid fa-plus"></i>Tech</button>
+                {% endif %}
+              </div>
+              <div class="proj-links">
+                {% if project.github_url %}<a href="{{project.github_url}}" target="_blank" class="plink prim"><i class="fa-brands fa-github"></i> GitHub</a>{% endif %}
+                {% if project.live_url %}<a href="{{project.live_url}}" target="_blank" class="plink sec">Live Demo</a>{% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+      {% else %}
+      <div class="empty-text">Project Not Found</div>
+      {% endif %}
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ====== SKILLS ====== -->
+    <section id="skills">
+      <div class="inner">
+        <div class="section-label">Technical Expertise</div>
+        <h2 class="section-title">
+          Skills
+          {% if user.is_authenticated %}
+          <span class="title-actions">
+            <button class="tab-btn tab-add" onclick="openModal('modal-skill-add')" title="Add Skill Category"><i class="fa-solid fa-plus"></i></button>
+          </span>
+          {% endif %}
+        </h2>
+        {% if skills %}
+        <div class="skills-grid">
+          {% for skill in skills %}
+          <div class="skill-block reveal">
+            <div class="skill-block-title">
+              {{skill.skill_category}}
+              {% if user.is_authenticated %}
+              <span class="skill-block-actions">
+                <button class="ca-btn ca-edit ca-sm" data-url="{% url 'add_skill_name' skill.pk %}" onclick="openSkillModal(this)" title="Add"><i class="fa-solid fa-plus"></i></button>
+                <button class="ca-btn ca-delete ca-sm" data-url="{% url 'delete_skill_category' skill.pk %}" data-title="Do you want to delete this category?" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+              </span>
+              {% endif %}
+            </div>
+            <div class="skill-tags">
+              {% for skill_tag in skill.skill_names.all %}
+              <span class="skill-tag">{{skill_tag.skill_name}} {% if user.is_authenticated %}<button class="skill-del" data-url="{% url 'delete_skill_name' skill_tag.pk %}" data-title="Do you want to delete {{skill_tag.skill_name}}?" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>{% endif %}</span>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+      {% else %}
+      <div class="empty-text">Skill Not Found</div>
+      {% endif %}
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ====== ACHIEVEMENTS ====== -->
+    <section id="achievements">
+      <div class="inner">
+        <div class="section-label">Key Achievements</div>
+        <h2 class="section-title">
+          Achievements
+          {% if user.is_authenticated %}
+          <span class="title-actions">
+            <button class="tab-btn tab-add" onclick="openModal('modal-achievement-add')" title="Add Achievement"><i class="fa-solid fa-plus"></i></button>
+          </span>
+          {% endif %}
+        </h2>
+        {% if achievements %}
+        <div class="cards">
+          {% for ach in achievements %}
+          <div class="card reveal">
+            {% if user.is_authenticated %}
+            <div class="card-actions">
+              <button class="ca-btn ca-edit" 
+                data-url="{% url 'edit_achievements' ach.pk %}"
+                data-name="achievement"
+                data-title="{{ach.title}}" 
+                data-org="{{ach.org}}" 
+                data-year="{{ach.year}}" 
+                data-certificate="{{ach.certificate}}" 
+                onclick="openEditModal('modal-achievement-edit', this)" 
+                title="Edit">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="ca-btn ca-delete" data-url="{% url 'delete_achievement' ach.pk %}" data-title="Do you want to delete {{ach.title}}?" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            {% endif %}
+            <div class="num">{{forloop.counter}}</div>
+            <div>
+              <div class="role">{{ach.title}}</div>
+              <div class="org">{{ach.org}}  (YEAR: {{ach.year}})</div>
+              <ul class="items">
+                {% for key in ach.keypoints.all %}
+                <li>{{key.keypoint}} {% if user.is_authenticated %}<button class="inner-del" data-url="{% url 'delete_achievement_keypoints' key.pk %}" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>{% endif %}</li>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                <button class="add-keypoints-btn" data-url="{% url 'add_acheivement_keypoints' ach.pk %}" onclick="openKeyModal(this)" title="Add Keypoints"><i class="fa-solid fa-plus"></i>Add Keypoints</button>
+                {% endif %}
+              </ul>
+              {% if ach.certificate %}
+              <a href="{{ach.certificate}}" target="_blank" class="cert"><i class="fa-solid fa-certificate"></i> View Certificate</a>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+      {% else %}
+      <div class="empty-text">Acheivement Not Found</div>
+      {% endif %}
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ====== CERTIFICATES ====== -->
+    <section id="certificates">
+      <div class="inner">
+        <div class="section-label">Courses & Certifications</div>
+        <h2 class="section-title">
+          Certificates
+          {% if user.is_authenticated %}
+          <span class="title-actions">
+            <button class="tab-btn tab-add" onclick="openModal('modal-cert-add')" title="Add Certificate"><i class="fa-solid fa-plus"></i></button>
+          </span>
+          {% endif %}
+        </h2>
+        {% if certificates %}
+        <div class="cards">
+          {% for cert in certificates %}
+          <div class="card reveal">
+            {% if user.is_authenticated %}
+            <div class="card-actions">
+              <button class="ca-btn ca-edit" 
+                data-url="{% url 'edit_certificates' cert.pk %}"
+                data-name="certificate" 
+                data-title="{{cert.title}}" 
+                data-org="{{cert.org}}" 
+                data-issuedate="{{cert.issue_date}}" 
+                data-expirydate="{{cert.expiry_date}}" 
+                data-certificate="{{cert.certificate}}" 
+                onclick="openEditModal('modal-cert-edit', this)" 
+                title="Edit">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="ca-btn ca-delete" data-url="{% url 'delete_certificate' cert.pk %}" data-title="Do you want to delete {{cert.title}}?" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            {% endif %}
+            <div class="num">{{forloop.counter}}</div>
+            <div>
+              <div class="role">{{cert.title}}</div>
+              <div class="org">{{cert.org}}</div>
+              <div class="date">ISSUE DATE: {{cert.issue_date}}</div>
+              {% if cert.expiry_date %}<div class="date">EXPIRY DATE: {{cert.expiry_date}}</div>{% endif %}
+              <ul class="items">
+                {% for key in cert.keypoints.all %}
+                <li>{{key.keypoint}} {% if user.is_authenticated %}<button class="inner-del" data-url="{% url 'delete_certificate_keypoint' key.pk %}" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>{% endif %}</li>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                <button class="add-keypoints-btn" data-url="{% url 'add_certificate_keypoints' cert.pk %}" onclick="openKeyModal(this)" title="Add Keypoints"><i class="fa-solid fa-plus"></i>Add Keypoints</button>
+                {% endif %}
+              </ul>
+              {% if cert.certificate %}<a href="{{cert.certificate}}" target="_blank" class="cert"><i class="fa-solid fa-certificate"></i> View Certificate</a>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+      {% else %}
+      <div class="empty-text">Certificate Not Found</div>
+      {% endif %}
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ====== EXPERIENCE ====== -->
+    <section id="experience">
+      <div class="inner">
+        <div class="section-label">Work History</div>
+        <h2 class="section-title">
+          Experience
+          {% if user.is_authenticated %}
+          <span class="title-actions">
+            <button class="tab-btn tab-add" onclick="openModal('modal-exp-add')" title="Add Experience"><i class="fa-solid fa-plus"></i></button>
+          </span>
+          {% endif %}
+        </h2>
+        {% if experiences %}
+        <div class="cards">
+          {% for exp in experiences %}
+          <div class="card reveal">
+            {% if user.is_authenticated %}
+            <div class="card-actions">
+              <button class="ca-btn ca-edit" 
+                data-url="{% url 'edit_experience' exp.pk %}"
+                data-name="experience"
+                data-role="{{exp.role}}" 
+                data-org="{{exp.org}}"  
+                data-startdate="{{exp.start_date}}" 
+                data-enddate="{{exp.end_date}}"  
+                data-certificate="{{exp.certificate}}" 
+                onclick="openEditModal('modal-exp-edit', this)" 
+                title="Edit">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="ca-btn ca-delete" data-url="{% url 'delete_experience' exp.pk %}" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            {% endif %}
+            <div class="num">{{forloop.counter}}</div>
+            <div>
+              <div class="role">{{exp.role}}</div>
+              <div class="org">{{exp.org}} · {{exp.start_date}} – {{exp.end_date}}</div>
+              <ul class="items">
+                {% for key in exp.keypoints.all %}
+                <li>{{key.keypoint}} {% if user.is_authenticated %}<button class="inner-del" data-url="{% url 'delete_experience_keypoint' key.pk %}" onclick="openConfirm(this)" title="Delete"><i class="fa-solid fa-xmark"></i></button>{% endif %}</li>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                <button class="add-keypoints-btn" data-url="{% url 'add_experience_keypoints' exp.pk %}" onclick="openKeyModal(this)" title="Add Keypoints"><i class="fa-solid fa-plus"></i>Add Keypoints</button>
+                {% endif %}
+              </ul>
+              {% if exp.certificate %}
+              <a href="{{exp.certificate}}" target="_blank" class="cert"><i class="fa-solid fa-certificate"></i> View Certificate</a>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <div class="empty-text">Experience Not Found</div>
+      {% endif %}
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ====== CONTACT ====== -->
+    <section id="contact">
+      <div class="inner">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title">Contact Me</h2>
+        <div class="contact-grid reveal">
+          <div class="contact-info">
+            <h3>Let's Work Together</h3>
+            <p>Open to internships, collaborations, or just a great conversation about tech. Drop me a message!</p>
+            <div class="c-socials">
+              {% if profile.github %}<a href="{{profile.github}}" target="_blank" class="csoc"><i class="fa-brands fa-github"></i> GitHub</a>{% endif %}
+              {% if profile.linkedin %}<a href="{{profile.linkedin}}" target="_blank" class="csoc"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>{% endif %}
+              {% if profile.facebook %}<a href="{{profile.facebook}}" target="_blank" class="csoc"><i class="fa-brands fa-facebook"></i> Facebook</a>{% endif %}
+              {% if profile.x %}<a href="{{profile.x}}" target="_blank" class="csoc"><i class="fa-brands fa-x-twitter"></i> X (Twitter)</a>{% endif %}
+              {% if profile.youtube %}<a href="{{profile.youtube}}" target="_blank" class="csoc"><i class="fa-brands fa-youtube"></i> Youtube</a>{% endif %}
+              {% if profile.instagram %}<a href="{{profile.instagram}}" target="_blank" class="csoc"><i class="fa-brands fa-instagram"></i> Instagram</a>{% endif %}
+              {% if profile.whatsapp %}<a href="{{profile.whatsapp}}" target="_blank" class="csoc"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>{% endif %}
+              {% if profile.telegram %}<a href="{{profile.telegram}}" target="_blank" class="csoc"><i class="fa-brands fa-telegram"></i> Telegram</a>{% endif %}
+              {% if profile.discord %}<a href="{{profile.discord}}" target="_blank" class="csoc"><i class="fa-brands fa-discord"></i> Discord</a>{% endif %}
+              {% if profile.messenger %}<a href="{{profile.messenger}}" target="_blank" class="csoc"><i class="fa-brands fa-facebook-messenger"></i> Messenger</a>{% endif %}
+            </div>
+          </div>
+          <div class="form-card">
+            <form id="contactForm" method="post" action="{% url 'contactMsg' %}">
+              {% csrf_token %}
+              <div class="fg"><label>Name</label><input type="text" name="name" class="fname" placeholder="Your full name" required /><span class="ferr fne"></span></div>
+              <div class="fg"><label>Email</label><input type="email" name="email" class="femail" placeholder="your@email.com" required /><span class="ferr fee"></span></div>
+              <div class="fg"><label>Subject</label><input type="text" name="subject" class="fsubj" placeholder="What's this about?" required /><span class="ferr fse"></span></div>
+              <div class="fg"><label>Message</label><textarea name="message" class="fmsg" placeholder="Write your message here..." required></textarea><span class="ferr fme"></span></div>
+              <button type="submit" class="f-submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+              <div class="ferr ffin"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  {% include "home/resume.html" %}
+{% endblock content %}

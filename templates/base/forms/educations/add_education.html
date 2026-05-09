@@ -1,0 +1,51 @@
+  <div class="modal-overlay" id="modal-edu-add">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Add Education</span>
+        <button class="modal-close" onclick="closeModal('modal-edu-add')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" id="modal-edu-add-form" method="POST" action="{% url 'add_education' %}">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="ea_institution">Institution Name</label>
+          <input id="ea_institution" type="text" name="institution" placeholder="e.g. BUET" required />
+        </div>
+        <div class="mf-group">
+          <label for="ea_degree">Degree / Certificate</label>
+          <input id="ea_degree" type="text" name="degree" placeholder="e.g. B.Sc." />
+        </div>
+        <div class="mf-group">
+          <label for="ea_field">Field of Study</label>
+          <input id="ea_field" type="text" name="field_of_study" placeholder="e.g. Computer Science & Engineering" />
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="ea_start">Start Year</label>
+            <input id="ea_start" type="text" name="start_year" placeholder="e.g. 2023" />
+          </div>
+          <div class="mf-group">
+            <label for="ea_end">End Year</label>
+            <input id="ea_end" type="text" name="end_year" placeholder="e.g. 2027" />
+          </div>
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="ea_grade">GPA / Grade</label>
+            <input id="ea_grade" type="text" name="grade" placeholder="e.g. 4.00 / 4.00" />
+          </div>
+          <div class="mf-group">
+            <label for="ea_location">Location</label>
+            <input id="ea_location" type="text" name="location" placeholder="e.g. Uttara, Dhaka" />
+          </div>
+        </div>
+        <div class="mf-group">
+          <label for="ea_website">Website URL</label>
+          <input id="ea_website" type="url" name="website" placeholder="https://university.edu.bd" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-edu-add')">Cancel</button>
+          <button type="submit" class="modal-save">Add Education</button>
+        </div>
+      </form>
+    </div>
+  </div>

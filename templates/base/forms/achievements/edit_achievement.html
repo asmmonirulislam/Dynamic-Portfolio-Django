@@ -1,0 +1,31 @@
+  <div class="modal-overlay" id="modal-achievement-edit">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Edit Achievement</span>
+        <button class="modal-close" onclick="closeModal('modal-achievement-edit')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="ace_title">Title / Role</label>
+          <input id="ace_title" type="text" name="title" placeholder="e.g. Secretary of Competitive Programming" required />
+        </div>
+        <div class="mf-group">
+          <label for="ace_org">Organisation</label>
+          <input id="ace_org" type="text" name="org" placeholder="e.g. WUB Computer Society" />
+        </div>
+        <div class="mf-group">
+          <label for="ace_start">Year</label>
+          <input id="ace_year" type="text" name="year" placeholder="e.g. 2024" />
+        </div>
+        <div class="mf-group">
+          <label for="ace_cert">Certificate / Link URL (optional)</label>
+          <input id="ace_cert" type="url" name="certificate" placeholder="https://..." />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-achievement-edit')">Cancel</button>
+          <button type="submit" class="modal-save">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>

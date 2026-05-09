@@ -1,0 +1,19 @@
+<div class="modal-overlay" id="modal-key-points">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Add a Keypoint</span>
+        <button class="modal-close" onclick="closeModal('modal-key-points')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" id="modal-form" method="POST">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="ea_description" id="title">Key-Point</label>
+          <textarea id="ea_description" name="keypoint" placeholder="Add a keypoint here..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-key-points')">Cancel</button>
+          <button type="submit" class="modal-save">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>

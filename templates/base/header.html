@@ -1,0 +1,28 @@
+{% load static %}
+  <section id="header">
+    <span style="cursor:pointer" {% if not user.is_authenticated %} data-tooltip="Admin Login" data-direction="right"  onclick="openModal('modal-login', this)" {% endif %}>
+        <img src="/media/{{profile.logo}}" id="logo" alt="Logo"
+          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2244%22 height=%2244%22><circle cx=%2222%22 cy=%2222%22 r=%2222%22 fill=%22%236c63ff%22/><text x=%2222%22 y=%2228%22 text-anchor=%22middle%22 font-size=%2215%22 font-weight=%22800%22 fill=%22white%22>MI</text></svg>'" />
+    </span>
+    {% if user.is_authenticated %}<div class="admin-badge">Admin View</div>{% endif %}
+    <ul id="navbar">
+      <li><a class="active" href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+      {% if user.is_authenticated %}
+      <li><a style="cursor:pointer" onclick="openLogout()">Logout</a></li>
+      {% endif %}
+      <i id="close" class="fa-solid fa-xmark"></i>
+    </ul>
+    <div id="mobile">
+      <i id="bar" class="fa-solid fa-bars"></i>
+    </div>
+  </section>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>

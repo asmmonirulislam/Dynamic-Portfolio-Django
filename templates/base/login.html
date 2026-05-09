@@ -1,0 +1,24 @@
+
+  <div class="modal-overlay" id="modal-login">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Login</span>
+        <button class="modal-close" onclick="closeModal('modal-login')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" placeholder="Your Username" autocomplete="username"></input>
+        </div>
+        <div class="mf-group">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder='Your Password' autocomplete="new-password"></input>
+        </div>
+        <div class="modal-footer-login">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-login')">Cancel</button>
+          <button type="submit" class="modal-save">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>

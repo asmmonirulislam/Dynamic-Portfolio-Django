@@ -1,0 +1,122 @@
+  <div class="modal-overlay" id="modal-hero">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Edit Profile</span>
+        <button class="modal-close" onclick="closeModal('modal-hero')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="h_first_name">First Name</label>
+          <input id="h_first_name" type="text" name="first_name" placeholder="e.g. A S M" value="{{profile.first_name | default:''}}"/>
+        </div>
+        <div class="mf-group">
+          <label for="h_middle_name">Middle Name</label>
+          <input id="h_middle_name" type="text" name="middle_name" placeholder="e.g. Monirul" value="{{profile.middle_name | default:''}}"/>
+        </div>
+        <div class="mf-group">
+          <label for="h_last_name">Last Name</label>
+          <input id="h_last_name" type="text" name="last_name" placeholder="e.g. Islam" value="{{profile.last_name | default:''}}"/>
+        </div>
+        <div class="mf-group">
+          <label for="h_designation">Designation / Badge Text</label>
+          <input id="h_designation" type="text" name="designation" placeholder="e.g. Student" value="{{profile.designation | default:''}}"/>
+        </div>
+        <div class="mf-group">
+          <label for="h_bio">Bio / Subtitle</label>
+          <textarea id="h_bio" name="about_bio" placeholder="Short bio shown under your name...">{{profile.about_bio | default:''}}</textarea>
+        </div>
+        <div class="mf-group">
+          <label for="h_career_obj">Career Objective</label>
+          <textarea id="h_career_obj" name="career_obj" placeholder="Your career objective...">{{profile.career_obj | default:''}}</textarea>
+        </div>
+        <div class="mf-group">
+          <label for="h_interests">Interests</label>
+          <textarea id="h_interests" name="interests" placeholder="e.g. Software Engineering, AI/ML, Competitive Programming">{{profile.interests | default:''}}</textarea>
+        </div>
+        <div class="mf-group">
+          <label for="h_fav_quote">Favourite Quote</label>
+          <textarea id="h_fav_quote" name="fav_quote" placeholder="Your favourite quote...">{{profile.fav_quote | default:''}}</textarea>
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="h_phone">Phone</label>
+            <input id="h_phone" type="text" name="phone" placeholder="+880..." value="{{profile.phone | default:''}}"/>
+          </div>
+          <div class="mf-group">
+            <label for="h_email">Email</label>
+            <input id="h_email" type="email" name="email" placeholder="you@email.com" value="{{profile.email | default:''}}"/>
+          </div>
+        </div>
+        <div class="mf-group">
+          <label for="h_location">Location</label>
+          <input id="h_location" type="text" name="location" placeholder="e.g. Dhaka, Bangladesh" value="{{profile.location | default:''}}"/>
+        </div>
+        <div class="mf-group">
+          <label for="h_image">Your Logo</label>
+          <input id="h_logo" type="file" name="logo" accept="image/*" value="{{profile.logo | default:''}}"/>
+        </div>
+        <div class="mf-group">
+          <label for="h_image">Profile Photo</label>
+          <input id="h_image" type="file" name="image" accept="image/*" value="{{profile.image | default:''}}"/>
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="h_github">GitHub</label>
+            <input id="h_github" type="url" name="github" placeholder="https://github.com/..." value="{{profile.github | default:''}}"/>
+          </div>
+          <div class="mf-group">
+            <label for="h_linkedin">LinkedIn</label>
+            <input id="h_linkedin" type="url" name="linkedin" placeholder="https://linkedin.com/in/..." value="{{profile.linkedin | default:''}}"/>
+          </div>
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="h_facebook">Facebook</label>
+            <input id="h_facebook" type="url" name="facebook" placeholder="https://facebook.com/..." value="{{profile.facebook | default:''}}"/>
+          </div>
+          <div class="mf-group">
+            <label for="h_instagram">Instagram</label>
+            <input id="h_instagram" type="url" name="instagram" placeholder="https://instagram.com/..." value="{{profile.instagram | default:''}}"/>
+          </div>
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="h_x">X (Twitter)</label>
+            <input id="h_x" type="url" name="x" placeholder="https://x.com/..." value="{{profile.x | default:''}}"/>
+          </div>
+          <div class="mf-group">
+            <label for="h_youtube">YouTube</label>
+            <input id="h_youtube" type="url" name="youtube" placeholder="https://youtube.com/..." value="{{profile.youtube | default:''}}"/>
+          </div>
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="h_whatsapp">WhatsApp</label>
+            <input id="h_whatsapp" type="url" name="whatsapp" placeholder="https://wa.me/..." value="{{profile.whatsapp | default:''}}"/>
+          </div>
+          <div class="mf-group">
+            <label for="h_messenger">Messenger</label>
+            <input id="h_messenger" type="url" name="messenger" placeholder="https://m.me/..." value="{{profile.messenger | default:''}}"/>
+          </div>
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="h_telegram">Telegram</label>
+            <input id="h_telegram" type="url" name="telegram" placeholder="https://t.me/..." value="{{profile.telegram | default:''}}"/>
+          </div>
+          <div class="mf-group">
+            <label for="h_discord">Discord</label>
+            <input id="h_discord" type="url" name="discord" placeholder="https://discord.com/..." value="{{profile.discord | default:''}}"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          {% if profile %}
+          <button type="button" class="reset-profile-btn" data-url="{% url 'reset_profile' %}" data-title="Do you want to reset this profile?" onclick="openConfirm(this)">Reset Profile</button>
+          {% endif %}
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-hero')">Cancel</button>
+          <button type="submit" class="modal-save">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>

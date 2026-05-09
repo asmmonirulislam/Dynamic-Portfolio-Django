@@ -1,0 +1,37 @@
+  <div class="modal-overlay" id="modal-exp-add">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Add Experience</span>
+        <button class="modal-close" onclick="closeModal('modal-exp-add')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST" action="{% url 'add_experiences' %}">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="exa_role">Role / Title</label>
+          <input id="exa_role" type="text" name="role" placeholder="e.g. Secretary of Competitive Programming" required />
+        </div>
+        <div class="mf-group">
+          <label for="exa_org">Organisation</label>
+          <input id="exa_org" type="text" name="org" placeholder="e.g. WUB Computer Society" />
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="exa_start">Start</label>
+            <input id="exa_start" type="text" name="start_date" placeholder="e.g. 2024" />
+          </div>
+          <div class="mf-group">
+            <label for="exa_end">End</label>
+            <input id="exa_end" type="text" name="end_date" placeholder="e.g. Present" />
+          </div>
+        </div>
+        <div class="mf-group">
+          <label for="exa_cert">Certificate / Link URL (optional)</label>
+          <input id="exa_cert" type="url" name="certificate" placeholder="https://..." />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-exp-add')">Cancel</button>
+          <button type="submit" class="modal-save">Add Experience</button>
+        </div>
+      </form>
+    </div>
+  </div>

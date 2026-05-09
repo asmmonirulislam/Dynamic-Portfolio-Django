@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/actions.css' %}">
+    <link rel="stylesheet" href="{% static 'css/resume.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"/>
+</head>
+<body>
+    {% include "base/confirm_delete.html" %}
+    {% include "base/confirm_logout.html" %}
+    {% include "base/login.html" %}
+    {% include "base/alert.html" %}
+    {% include "base/forms/keypoints.html" %}
+    {% include "base/forms/profile/add_profile.html" %}
+    {% include "base/forms/about/add_about.html" %}
+    {% include "base/forms/achievements/add_achievement.html" %}
+    {% include "base/forms/achievements/edit_achievement.html" %}
+    {% include "base/forms/certificates/add_certificate.html" %}
+    {% include "base/forms/certificates/edit_certificate.html" %}
+    {% include "base/forms/educations/add_education.html" %}
+    {% include "base/forms/educations/edit_education.html" %}
+    {% include "base/forms/experiences/add_experience.html" %}
+    {% include "base/forms/experiences/edit_experience.html" %}
+    {% include "base/forms/projects/add_project.html" %}
+    {% include "base/forms/projects/edit_project.html" %}
+    {% include "base/forms/projects/add_tech.html" %}
+    {% include "base/forms/skills/add_skill_category.html" %}
+    {% include "base/forms/skills/add_skill_name.html" %}
+    {% include "base/header.html" %}
+    {% block content %}{% endblock content %}
+    {% include "base/footer.html" %}
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+  <div class="modal-overlay" id="modal-about">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Edit About Section</span>
+        <button class="modal-close" onclick="closeModal('modal-about')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST" action="{% url 'add_about' %}">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="a_bio">About Yourself</label>
+          <textarea id="a_bio" name="about" rows="6" placeholder="Write your about section content here..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-about')">Cancel</button>
+          <button type="submit" class="modal-save">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,31 @@
+  <div class="modal-overlay" id="modal-achievement-add">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Add Achievement</span>
+        <button class="modal-close" onclick="closeModal('modal-achievement-add')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST" action="{% url 'add_achievements' %}">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="aca_title">Title / Role</label>
+          <input id="aca_title" type="text" name="title" placeholder="e.g. Secretary of Competitive Programming" required />
+        </div>
+        <div class="mf-group">
+          <label for="aca_org">Organisation</label>
+          <input id="aca_org" type="text" name="org" placeholder="e.g. WUB Computer Society" />
+        </div>
+        <div class="mf-group">
+          <label for="aca_start">Year</label>
+          <input id="aca_year" type="text" name="year" placeholder="e.g. 2024" />
+        </div>
+        <div class="mf-group">
+          <label for="aca_cert">Certificate / Link URL (optional)</label>
+          <input id="aca_cert" type="url" name="certificate" placeholder="https://..." />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-achievement-add')">Cancel</button>
+          <button type="submit" class="modal-save">Add Achievement</button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,184 @@
+#cover {
+  display: none;
+  max-width: 820px;
+  margin: 0 auto;
+  background: #ffffff;
+  /* padding: 52px 56px 60px 56px; */
+  font-family: "Calibri", "Segoe UI", Arial, sans-serif;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Header Style */
+#cover .header {
+  margin-bottom: 22px;
+}
+
+#cover .header h1 {
+  font-family: "Calibri", "Segoe UI", Arial, sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 0px;
+  color: #111111;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+#cover .header .subtitle {
+  font-size: 16px;
+  font-weight: 900;
+  color: #111111;
+  margin-bottom: 4px;
+}
+
+#cover .header .address {
+  font-size: 15px;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+}
+
+#cover .header .contact-line {
+  font-size: 15px;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+}
+
+#cover .header .contact-line a,
+#cover .header .links-line a {
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+#cover .header .links-line {
+  font-size: 15px;
+  color: #1a1a1a;
+}
+
+#cover .sep {
+  margin: 0 6px;
+  color: #555;
+}
+
+/* Section style */
+#cover .section {
+  margin-top: 18px;
+}
+
+#cover .section-title {
+  background: #d9d9d9;
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  color: #222;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Career Objectives style */
+#cover .objective-text {
+  font-size: 15px;
+  color: #1a1a1a;
+  line-height: 1.55;
+}
+
+/* Achievement style */
+#cover .achievement {
+  margin-bottom: 8px;
+}
+
+#cover .achievement-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.4;
+}
+
+#cover .achievement ul {
+  list-style: disc;
+  padding-left: 22px;
+  margin-top: 2px;
+}
+
+#cover .achievement ul li {
+  font-size: 15px;
+  color: #1a1a1a;
+  line-height: 1.5;
+}
+
+/* Experiences and entry cards */
+#cover .entry {
+  margin-bottom: 10px;
+}
+
+#cover .entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+#cover .entry-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+
+#cover .entry-date {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+  white-space: nowrap;
+  margin-left: 12px;
+}
+
+#cover .entry ul {
+  list-style: disc;
+  padding-left: 22px;
+  margin-top: 3px;
+}
+
+#cover .entry ul li {
+  font-size: 15px;
+  color: #1a1a1a;
+  line-height: 1.5;
+  margin-top: 1px;
+}
+
+/* Skills style */
+#cover .skills-group {
+  margin-bottom: 10px;
+}
+
+#cover .skills-group-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
+}
+
+#cover .skills-group ul {
+  list-style: disc;
+  padding-left: 22px;
+}
+
+#cover .skills-group ul li {
+  font-size: 15px;
+  color: #1a1a1a;
+  line-height: 1.5;
+  margin-top: 1px;
+}
+
+#cover strong {
+  font-weight: 700;
+}
+
+
+/* Page break avoid */
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}

@@ -1,0 +1,33 @@
+  <div class="modal-overlay" id="modal-proj-edit">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Edit Project</span>
+        <button class="modal-close" onclick="closeModal('modal-proj-edit')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="pe_title">Project Title</label>
+          <input id="pe_title" type="text" name="title" placeholder="e.g. EduCare App" />
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="pe_github">GitHub URL</label>
+            <input id="pe_github" type="url" name="github_url" placeholder="https://github.com/..." />
+          </div>
+          <div class="mf-group">
+            <label for="pe_live">Live Demo URL</label>
+            <input id="pe_live" type="url" name="live_url" placeholder="https://..." />
+          </div>
+        </div>
+        <div class="mf-group">
+          <label for="pe_image">Replace Thumbnail</label>
+          <input id="pe_image" type="file" name="thumbnail" accept="image/*" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-proj-edit')">Cancel</button>
+          <button type="submit" class="modal-save">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>

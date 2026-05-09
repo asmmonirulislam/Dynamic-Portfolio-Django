@@ -1,0 +1,33 @@
+  <div class="modal-overlay" id="modal-proj-add">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Add Project</span>
+        <button class="modal-close" onclick="closeModal('modal-proj-add')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST" action="{% url 'add_project' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="pa_title">Project Title</label>
+          <input id="pa_title" type="text" name="title" placeholder="e.g. EduCare App" required />
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="pa_github">GitHub URL</label>
+            <input id="pa_github" type="url" name="github_url" placeholder="https://github.com/..." />
+          </div>
+          <div class="mf-group">
+            <label for="pa_live">Live Demo URL</label>
+            <input id="pa_live" type="url" name="live_url" placeholder="https://..." />
+          </div>
+        </div>
+        <div class="mf-group">
+          <label for="pa_image">Project Thumbnail</label>
+          <input id="pa_image" type="file" name="thumbnail" accept="image/*" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-proj-add')">Cancel</button>
+          <button type="submit" class="modal-save">Add Project</button>
+        </div>
+      </form>
+    </div>
+  </div>

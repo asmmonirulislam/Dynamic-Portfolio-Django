@@ -1,0 +1,37 @@
+  <div class="modal-overlay" id="modal-cert-add">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Add Certificate</span>
+        <button class="modal-close" onclick="closeModal('modal-cert-add')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST" action="{% url 'add_certificates' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="ca_title">Certificate Title</label>
+          <input id="ca_title" type="text" name="title" placeholder="e.g. Python for Everybody" required />
+        </div>
+        <div class="mf-group">
+          <label for="ca_issuer">Issuing Organisation</label>
+          <input id="ca_issuer" type="text" name="org" placeholder="e.g. Coursera / Google / ICPC" />
+        </div>
+        <div class="mf-row">
+          <div class="mf-group">
+            <label for="ca_issued">Issue Date</label>
+            <input id="ca_issued" type="text" name="issue_date" placeholder="e.g. Oct 2024" />
+          </div>
+          <div class="mf-group">
+            <label for="ca_expires">Expiry</label>
+            <input id="ca_expires" type="text" name="expiry_date" placeholder="e.g. No Expiry" />
+          </div>
+        </div>
+        <div class="mf-group">
+          <label for="ca_url">Certificate URL</label>
+          <input id="ca_url" type="url" name="certificate" placeholder="https://..." />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-cert-add')">Cancel</button>
+          <button type="submit" class="modal-save">Add Certificate</button>
+        </div>
+      </form>
+    </div>
+  </div>

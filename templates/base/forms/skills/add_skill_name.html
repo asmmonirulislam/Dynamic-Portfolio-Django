@@ -1,0 +1,19 @@
+  <div class="modal-overlay" id="modal-skill-name">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Add Skill for Language</span>
+        <button class="modal-close" onclick="closeModal('modal-skill-name')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="modal-form" method="POST">
+        {% csrf_token %}
+        <div class="mf-group">
+          <label for="se_skills">Skill Name</label>
+          <input id="se_skills" type="text" name="skill_name" placeholder="e.g. Python" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel" onclick="closeModal('modal-skill-name')">Cancel</button>
+          <button type="submit" class="modal-save">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
